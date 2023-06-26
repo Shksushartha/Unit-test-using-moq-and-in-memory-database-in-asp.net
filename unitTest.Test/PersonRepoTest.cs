@@ -56,6 +56,22 @@ namespace unitTest.Test
             //Assert
             Assert.NotNull(persons);
         }
+
+        /*[Fact]
+        public async Task Add_Test_Queryable()
+        {
+            var fakePerson = new PersonRepoTest();
+            var data = fakePerson.GetFakePersonList();
+            var personContextMock = new Mock<PersonDbContext>();
+            personContextMock.Setup(x => x.Persons.FirstOrDefault())
+                .Returns(data.FirstOrDefault(x => x.Id == 1) );
+            
+            Repository repository = new Repository(personContextMock.Object);
+            Person person = await repository.GetById(1);
+            
+            Assert.NotNull(person);
+            Assert.Equal(1, person.Id);
+        }*/
     }
 }
 

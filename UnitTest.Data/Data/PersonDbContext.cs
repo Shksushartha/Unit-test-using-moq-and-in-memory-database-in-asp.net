@@ -7,7 +7,7 @@ namespace UnitTest.Data.Data
     public class PersonDbContext : DbContext
     {
 
-        public DbSet<Person> Persons { get; set; }
+        public virtual DbSet<Person> Persons { get; set; }
 
         public PersonDbContext(DbContextOptions<PersonDbContext> options) : base(options)
         {
