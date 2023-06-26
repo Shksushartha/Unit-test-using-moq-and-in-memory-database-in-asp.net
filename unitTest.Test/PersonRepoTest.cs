@@ -11,13 +11,29 @@ namespace unitTest.Test
 {
     public class PersonRepoTest
     {
-        //private readonly Repository _repository;
+        private readonly PersonDbContext _inMemDbContext;
+        private readonly Repository _repository;
+        public PersonRepoTest()
+        {
+            _inMemDbContext = GetInMemoryContext();
+            _repository = new Repository(_inMemDbContext);
+        }
+
         //private readonly Mock<PersonDbContext> _personDbMock = new Mock<PersonDbContext>();
 
         //public PersonRepoTest()
         //{
         //    _repository = new Repository(_personDbMock.Object);
         //}
+
+
+        private PersonDbContext GetInMemoryContext()
+        {
+            var builder = new DbContextOptionsBuilder<PersonDbContext>();
+            builder.UseInMemoryDatabase("TestDatabase");
+            return new PersonDbContext(builder.Options);
+        }
+
         private List<Person> GetFakePersonList()
         {
             return new List<Person>()
@@ -72,6 +88,18 @@ namespace unitTest.Test
             Assert.NotNull(person);
             Assert.Equal(1, person.Id);
         }*/
+
+        [Fact]
+        public async Task Create_Test()
+        {
+            List<Person> people = GetFakePersonList();
+            Person p1 = people[0];
+            bool flag = await _repository.Add(p1);
+
+            var p2 = await _repository.GetById(p1.Id);
+
+            Assert.Equal(p1.Name, p2.Name);
+        }
     }
 }
 

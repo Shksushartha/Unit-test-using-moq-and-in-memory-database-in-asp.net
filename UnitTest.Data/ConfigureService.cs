@@ -13,7 +13,7 @@ namespace UnitTest.Data
         {
             services.AddScoped<IRepository, Repository>();
             var conn = configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<PersonDbContext>(provider => provider.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+            services.AddDbContext<PersonDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                 buider => buider.MigrationsAssembly(typeof(PersonDbContext).Assembly.FullName)));
             //services.AddScoped<IPersonDbContext>(provider => provider.GetRequiredService<PersonDbContext>());
             return services;
